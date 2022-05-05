@@ -1,0 +1,37 @@
+name: Build firmware RUSH_BLADE_F7_HD
+# Don't enable CI on push, just on PR. If you
+# are working on the main repo and want to trigger
+# a CI build submit a draft PR.
+on: [push, workflow_dispatch]
+
+jobs:
+  build-RUSH_BLADE_F7_HD:
+    runs-on: ubuntu-18.04
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: RUSH_BLADE_F7_HD
+
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get -y install ninja-build
+
+      - uses: actions/cache@v1
+        with:
+          path: downloads
+          key: ${{ runner.os }}-downloads-${{ hashFiles('CMakeLists.txt') }}-${{ hashFiles('**/cmake/*')}}
+
+      - name: Build target RUSH_BLADE_F7_HD
+        shell: bash
+        run: | 
+          mkdir -p build
+          cd build
+          cmake ..
+          make RUSH_BLADE_F7_HD -j8
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2-preview
+        with:
+          name: download firmware
+          path: ./build/*.hex
+
