@@ -19,7 +19,14 @@
 #pragma once
 
 #define TARGET_BOARD_IDENTIFIER "RBF7"
+
+#if defined(RUSH_BLADE_F7)
 #define USBD_PRODUCT_STRING  "RUSH_BLADE_F7"
+#endif
+
+#if defined(RUSH_BLADE_F7_HD)
+#define USBD_PRODUCT_STRING  "RUSH_BLADE_F7_HD"
+#endif
 
 #define LED0                    PB10  //Blue   SWCLK
 // #define LED1                    PA13  //Green  SWDIO
@@ -52,6 +59,7 @@
 #define USE_BARO
 #define BARO_I2C_BUS            BUS_I2C1
 #define USE_BARO_BMP280
+#define USE_BARO_BMP085
 #define USE_BARO_MS5611
 #define USE_BARO_DPS310
 
@@ -93,9 +101,9 @@
 #define UART1_TX_PIN            PA9
 #define UART1_RX_PIN            PA10
 
-#define USE_UART2
-#define UART2_TX_PIN            PA2
-#define UART2_RX_PIN            PA3
+//#define USE_UART2
+//#define UART2_TX_PIN            PA2
+//#define UART2_RX_PIN            PA3
 
 #define USE_UART3
 #define UART3_TX_PIN            PC10
@@ -109,11 +117,11 @@
 #define UART5_TX_PIN            PC12
 #define UART5_RX_PIN            PD2
 
-#define SERIAL_PORT_COUNT       6
+#define SERIAL_PORT_COUNT       5
 
 #define DEFAULT_RX_TYPE         RX_TYPE_SERIAL
 #define SERIALRX_PROVIDER       SERIALRX_SBUS
-#define SERIALRX_UART           SERIAL_PORT_USART2
+#define SERIALRX_UART           SERIAL_PORT_USART1
 
 // *************** ADC *****************************
 #define USE_ADC
@@ -127,10 +135,10 @@
 #define CURRENT_METER_ADC_CHANNEL   ADC_CHN_2
 
 // *************** LEDSTRIP ************************
-#define USE_LED_STRIP
-#define WS2811_PIN                  PA8
+//#define USE_LED_STRIP
+//#define WS2811_PIN                  PA8
 
-#define DEFAULT_FEATURES   (FEATURE_OSD | FEATURE_TELEMETRY | FEATURE_CURRENT_METER | FEATURE_VBAT | FEATURE_TX_PROF_SEL)
+#define DEFAULT_FEATURES   ( FEATURE_TELEMETRY | FEATURE_CURRENT_METER | FEATURE_VBAT | FEATURE_TX_PROF_SEL | FEATURE_BLACKBOX)
 #define CURRENT_METER_SCALE     179
 
 #define USE_SERIAL_4WAY_BLHELI_INTERFACE
@@ -140,6 +148,6 @@
 #define TARGET_IO_PORTC 0xffff
 #define TARGET_IO_PORTD 0xffff
 
-#define MAX_PWM_OUTPUT_PORTS        10
+#define MAX_PWM_OUTPUT_PORTS        5
 #define USE_DSHOT
 #define USE_ESC_SENSOR
